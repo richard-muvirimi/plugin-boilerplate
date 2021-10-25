@@ -454,7 +454,7 @@ class Plugin_Boilerplate_Admin
 		 * 
 		 * If upper case or lower follow suit else try to make the first character follow case
 		 */
-		return preg_replace_callback("/(?<=[^\$>])plugin(-|_)name/i", function ($match) use ($name) {
+		return preg_replace_callback("/(?<=[^\$>])plugin(-|_)name(?!\(\))/i", function ($match) use ($name) {
 
 			if (preg_match("/\b([[:upper:]_]+)\b/", $match[0])) {
 				$name = strtoupper($name);
