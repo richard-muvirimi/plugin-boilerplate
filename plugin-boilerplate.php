@@ -13,7 +13,7 @@
  * @package           Plugin_Boilerplate
  *
  * @wordpress-plugin
- * Plugin Name:       Plugin Boilerplate
+ * Plugin Name:       Plugin Boilerplate Generator
  * Plugin URI:        http://webentangled.co.zw
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0

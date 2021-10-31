@@ -127,6 +127,42 @@ class Plugin_Boilerplate_Options
 			$this->plugin_name . "-author-email",
 			array("sanitize_callback" => "sanitize_email")
 		);
+
+		register_setting(
+			$this->plugin_name . "-features",
+			$this->plugin_name . "-feature-admin",
+			array("sanitize_callback" => "trim")
+		);
+
+		register_setting(
+			$this->plugin_name . "-features",
+			$this->plugin_name . "-feature-public",
+			array("sanitize_callback" => "trim")
+		);
+
+		register_setting(
+			$this->plugin_name . "-features",
+			$this->plugin_name . "-feature-options",
+			array("sanitize_callback" => "trim")
+		);
+
+		register_setting(
+			$this->plugin_name . "-features",
+			$this->plugin_name . "-feature-rest",
+			array("sanitize_callback" => "trim")
+		);
+
+		register_setting(
+			$this->plugin_name . "-features",
+			$this->plugin_name . "-feature-ajax",
+			array("sanitize_callback" => "trim")
+		);
+
+		register_setting(
+			$this->plugin_name . "-features",
+			$this->plugin_name . "-feature-composer",
+			array("sanitize_callback" => "trim")
+		);
 	}
 
 	public function add_settings_sections()
@@ -135,6 +171,13 @@ class Plugin_Boilerplate_Options
 			$this->plugin_name,
 			__("Plugin Details", $this->plugin_name),
 			array($this, "render_options_header"),
+			$this->plugin_name . "-options"
+		);
+
+		add_settings_section(
+			$this->plugin_name . "-features",
+			__("Plugin Features", $this->plugin_name),
+			array($this, "render_features_header"),
 			$this->plugin_name . "-options"
 		);
 	}
@@ -237,6 +280,90 @@ class Plugin_Boilerplate_Options
 				"placeholder" => get_bloginfo("admin_email") ?: "email@example.com"
 			)
 		);
+
+		add_settings_field(
+			$this->plugin_name . '-feature-admin',
+			__('Admin', $this->plugin_name),
+			array($this, 'render_checkbox_field'),
+			$this->plugin_name . "-options",
+			$this->plugin_name . "-features",
+			array(
+				'label_for' => $this->plugin_name . '-feature-admin',
+				'class' => $this->plugin_name . '-row',
+				"value" => get_option($this->plugin_name . "-feature-admin", "yes"),
+				'description' => __("Whether this plugin will include admin functionality.", $this->plugin_name),
+			)
+		);
+
+		add_settings_field(
+			$this->plugin_name . '-feature-public',
+			__('Public', $this->plugin_name),
+			array($this, 'render_checkbox_field'),
+			$this->plugin_name . "-options",
+			$this->plugin_name . "-features",
+			array(
+				'label_for' => $this->plugin_name . '-feature-public',
+				'class' => $this->plugin_name . '-row',
+				"value" => get_option($this->plugin_name . "-feature-public", "yes"),
+				'description' => __("Whether this plugin will include public functionality.", $this->plugin_name),
+			)
+		);
+
+		add_settings_field(
+			$this->plugin_name . '-feature-options',
+			__('Options', $this->plugin_name),
+			array($this, 'render_checkbox_field'),
+			$this->plugin_name . "-options",
+			$this->plugin_name . "-features",
+			array(
+				'label_for' => $this->plugin_name . '-feature-options',
+				'class' => $this->plugin_name . '-row',
+				"value" => get_option($this->plugin_name . "-feature-options"),
+				'description' => __("Whether this plugin will include options functionality.", $this->plugin_name),
+			)
+		);
+
+		add_settings_field(
+			$this->plugin_name . '-feature-rest',
+			__('Rest', $this->plugin_name),
+			array($this, 'render_checkbox_field'),
+			$this->plugin_name . "-options",
+			$this->plugin_name . "-features",
+			array(
+				'label_for' => $this->plugin_name . '-feature-rest',
+				'class' => $this->plugin_name . '-row',
+				"value" => get_option($this->plugin_name . "-feature-rest"),
+				'description' => __("Whether this plugin will include rest functionality.", $this->plugin_name),
+			)
+		);
+
+		add_settings_field(
+			$this->plugin_name . '-feature-ajax',
+			__('Ajax', $this->plugin_name),
+			array($this, 'render_checkbox_field'),
+			$this->plugin_name . "-options",
+			$this->plugin_name . "-features",
+			array(
+				'label_for' => $this->plugin_name . '-feature-ajax',
+				'class' => $this->plugin_name . '-row',
+				"value" => get_option($this->plugin_name . "-feature-ajax"),
+				'description' => __("Whether this plugin will include ajax functionality.", $this->plugin_name),
+			)
+		);
+
+		add_settings_field(
+			$this->plugin_name . '-feature-composer',
+			__('Composer', $this->plugin_name),
+			array($this, 'render_checkbox_field'),
+			$this->plugin_name . "-options",
+			$this->plugin_name . "-features",
+			array(
+				'label_for' => $this->plugin_name . '-feature-composer',
+				'class' => $this->plugin_name . '-row',
+				"value" => get_option($this->plugin_name . "-feature-composer"),
+				'description' => __("Whether this plugin will include composer packages.", $this->plugin_name),
+			)
+		);
 	}
 
 	public function render_options_header()
@@ -252,6 +379,11 @@ class Plugin_Boilerplate_Options
 	public function render_input_field($args)
 	{
 		include plugin_dir_path(__FILE__) . "partials/plugin-boilerplate-options-field.php";
+	}
+
+	public function render_checkbox_field($args)
+	{
+		include plugin_dir_path(__FILE__) . "partials/plugin-boilerplate-options-field-checkbox.php";
 	}
 
 	public function render_page()
