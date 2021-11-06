@@ -109,7 +109,7 @@ function plugin_boilerplate_walk_dir(callable $callback, $location)
 
             $destination = str_replace(plugin_boilerplate_files(), "", $target);
 
-            $done &= call_user_func($callback, $path, ltrim($destination, "\\\/"), $content);
+            $done &= call_user_func($callback, $path, $destination, $content);
         }
     }
 
