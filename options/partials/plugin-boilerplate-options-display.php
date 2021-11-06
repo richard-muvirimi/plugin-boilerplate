@@ -21,14 +21,9 @@ settings_errors($this->plugin_name);
     <h1><?php esc_html_e(get_admin_page_title()); ?></h1>
     <form action="options.php" method="post">
         <?php
-        // output security fields for the registered setting "wporg"
+
         settings_fields($this->plugin_name . "-options");
-        settings_fields($this->plugin_name . "-features");
-        settings_fields($this->plugin_name . "-vcs");
-        // output setting sections and their fields
-        // (sections are registered for "wporg", each field is registered to a specific section)
         do_settings_sections($this->plugin_name . "-options");
-        // output save settings button
 
         $attr = array("style" => "margin: 0 7px");
 

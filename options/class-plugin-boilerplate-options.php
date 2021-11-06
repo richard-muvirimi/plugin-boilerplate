@@ -157,43 +157,43 @@ class Plugin_Boilerplate_Options
 		);
 
 		register_setting(
-			$this->plugin_name . "-features",
+			$this->plugin_name . "-options",
 			$this->plugin_name . "-feature-admin",
 			array("sanitize_callback" => "trim")
 		);
 
 		register_setting(
-			$this->plugin_name . "-features",
+			$this->plugin_name . "-options",
 			$this->plugin_name . "-feature-public",
 			array("sanitize_callback" => "trim")
 		);
 
 		register_setting(
-			$this->plugin_name . "-features",
+			$this->plugin_name . "-options",
 			$this->plugin_name . "-feature-options",
 			array("sanitize_callback" => "trim")
 		);
 
 		register_setting(
-			$this->plugin_name . "-features",
+			$this->plugin_name . "-options",
 			$this->plugin_name . "-feature-rest",
 			array("sanitize_callback" => "trim")
 		);
 
 		register_setting(
-			$this->plugin_name . "-features",
+			$this->plugin_name . "-options",
 			$this->plugin_name . "-feature-ajax",
 			array("sanitize_callback" => "trim")
 		);
 
 		register_setting(
-			$this->plugin_name . "-features",
+			$this->plugin_name . "-options",
 			$this->plugin_name . "-feature-composer",
 			array("sanitize_callback" => "trim")
 		);
 
 		register_setting(
-			$this->plugin_name . "-vcs",
+			$this->plugin_name . "-options",
 			$this->plugin_name . "-vcs-git",
 			array("sanitize_callback" => "trim")
 		);
@@ -345,7 +345,7 @@ class Plugin_Boilerplate_Options
 			array(
 				'label_for' => $this->plugin_name . '-feature-admin',
 				'class' => $this->plugin_name . '-row',
-				"value" => get_option($this->plugin_name . "-feature-admin", "yes"),
+				"value" => get_option($this->plugin_name . "-feature-admin", "on"),
 				'description' => __("Whether this plugin will include admin functionality.", $this->plugin_name),
 			)
 		);
@@ -359,7 +359,7 @@ class Plugin_Boilerplate_Options
 			array(
 				'label_for' => $this->plugin_name . '-feature-public',
 				'class' => $this->plugin_name . '-row',
-				"value" => get_option($this->plugin_name . "-feature-public", "yes"),
+				"value" => get_option($this->plugin_name . "-feature-public", "on"),
 				'description' => __("Whether this plugin will include public functionality.", $this->plugin_name),
 			)
 		);

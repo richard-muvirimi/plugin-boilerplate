@@ -17,7 +17,8 @@
 
 ?>
 
-<input id="<?php esc_attr_e($args['label_for']) ?>" name="<?php esc_attr_e($args['label_for']) ?>" type="checkbox" <?php checked($args['value'], "yes") ?>>
+<input id="<?php esc_attr_e($args['label_for']) ?>" name="<?php esc_attr_e($args['label_for']) ?>" type="checkbox"
+    <?php checked($args['value'], "on") ?>>
 
 <div>
     <small class="description">
