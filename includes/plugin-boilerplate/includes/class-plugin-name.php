@@ -96,7 +96,10 @@ class Plugin_Name
 	 * - Plugin_Name_Loader. Orchestrates the hooks of the plugin.
 	 * - Plugin_Name_i18n. Defines internationalization functionality.
 	 * - Plugin_Name_Admin. Defines all hooks for the admin area.
+	 * - Plugin_Name_Ajax. Defines all hooks for the ajax functionality.
+	 * - Plugin_Name_Options. Defines all hooks for the options functionality.
 	 * - Plugin_Name_Public. Defines all hooks for the public side of the site.
+	 * - Plugin_Name_Rest. Defines all hooks for the rest functionality.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.

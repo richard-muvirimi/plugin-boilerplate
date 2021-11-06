@@ -740,6 +740,9 @@ class Plugin_Boilerplate_Admin
 					//remove calling function
 					$content = preg_replace("/\n.*define.*" . $dir . ".*;/", "", $content);
 
+					//remove doc block comments
+					$content = preg_replace("/(\/\*{2}[\w\s\*.\-:]+)(?:\n.*_" . $dir . ".*)([\w\s\*.\-@]+\*\/\n\s+.*load_dependencies)/i", "$1$2", $content);
+
 					//remove include file
 					$content = preg_replace("/\s+\/\*{2}[\w\s\*.\-]+\*\/\n\s+require_once.*" . $dir . ".*" . $dir . ".*;/", "", $content);
 
