@@ -7,6 +7,7 @@
  *
  * @link       htts://tyganeutronics.com
  * @since      1.0.0
+ * @version 1.0.0
  *
  * @package    Plugin_Boilerplate
  * @subpackage Plugin_Boilerplate/option/partials
@@ -16,9 +17,7 @@
 
 ?>
 
-<input id="<?php esc_attr_e($args['label_for']) ?>" name="<?php esc_attr_e($args['label_for']) ?>"
-    data-custom="<?php esc_attr_e($args['value']); ?>" type="<?php esc_attr_e($args['type']); ?>"
-    placeholder="<?php esc_attr_e($args['placeholder'] ?? ""); ?>" value="<?php esc_attr_e($args['value']); ?>">
+<input id="<?php esc_attr_e($args['label_for']) ?>" name="<?php esc_attr_e($args['label_for']) ?>" data-custom="<?php esc_attr_e($args['value']); ?>" type="<?php esc_attr_e($args['type']); ?>" placeholder="<?php esc_attr_e($args['placeholder'] ?? ""); ?>" value="<?php esc_attr_e($args['value']); ?>">
 
 <div>
     <small class="description">

@@ -8,6 +8,7 @@
  *
  * @link       http://example.com
  * @since      1.0.0
+ * @version    1.0.0
  *
  * @package    Plugin_Name
  * @subpackage Plugin_Name/includes
@@ -23,6 +24,7 @@
  * version of the plugin.
  *
  * @since      1.0.0
+ * @version    1.0.0
  * @package    Plugin_Name
  * @subpackage Plugin_Name/includes
  * @author     Your Name <email@example.com>
@@ -35,6 +37,7 @@ class Plugin_Name
 	 * the plugin.
 	 *
 	 * @since    1.0.0
+	 * @version  1.0.0
 	 * @access   protected
 	 * @var      Plugin_Name_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
@@ -44,6 +47,7 @@ class Plugin_Name
 	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
+	 * @version  1.0.0
 	 * @access   protected
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
@@ -53,6 +57,7 @@ class Plugin_Name
 	 * The current version of the plugin.
 	 *
 	 * @since    1.0.0
+	 * @version  1.0.0
 	 * @access   protected
 	 * @var      string    $version    The current version of the plugin.
 	 */
@@ -66,6 +71,8 @@ class Plugin_Name
 	 * the public-facing side of the site.
 	 *
 	 * @since    1.0.0
+	 * @version  1.0.0
+	 * @return   void
 	 */
 	public function __construct()
 	{
@@ -75,7 +82,10 @@ class Plugin_Name
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
+		$this->define_ajax_hooks();
+		$this->define_options_hooks();
 		$this->define_public_hooks();
+		$this->define_rest_hooks();
 	}
 
 	/**
@@ -92,7 +102,9 @@ class Plugin_Name
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
+	 * @version  1.0.0
 	 * @access   private
+	 * @return   void
 	 */
 	private function load_dependencies()
 	{
@@ -115,10 +127,33 @@ class Plugin_Name
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-plugin-name-admin.php';
 
 		/**
+		 * The class responsible for defining all actions that occur in the ajax-facing
+		 * side of the site.
+		 */
+		require_once plugin_dir_path(dirname(__FILE__)) . 'ajax/class-plugin-name-ajax.php';
+
+		/**
+		 * The class responsible for defining all actions that occur in the options-facing
+		 * side of the site.
+		 */
+		require_once plugin_dir_path(dirname(__FILE__)) . 'options/class-plugin-name-options.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
 		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-plugin-name-public.php';
+
+		/**
+		 * The class responsible for defining all actions that occur in the rest-facing
+		 * side of the site.
+		 */
+		require_once plugin_dir_path(dirname(__FILE__)) . 'rest/class-plugin-name-rest.php';
+
+		/**
+		 * Load composer packages
+		 */
+		include_once plugin_dir_path(dirname(__FILE__)) . 'vendor/autoload.php';
 
 		$this->loader = new Plugin_Name_Loader();
 	}
@@ -130,7 +165,9 @@ class Plugin_Name
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
+	 * @version  1.0.0
 	 * @access   private
+	 * @return   void
 	 */
 	private function set_locale()
 	{
@@ -145,7 +182,9 @@ class Plugin_Name
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
+	 * @version  1.0.0
 	 * @access   private
+	 * @return   void
 	 */
 	private function define_admin_hooks()
 	{
@@ -157,11 +196,55 @@ class Plugin_Name
 	}
 
 	/**
+	 * Register all of the hooks related to the ajax-facing functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @version  1.0.0
+	 * @access   private
+	 * @return   void
+	 */
+	private function define_ajax_hooks()
+	{
+
+		$plugin_ajax = new Plugin_Name_Ajax($this->get_plugin_name(), $this->get_version());
+
+		/**
+		 * This code is for demonstration only
+		 * 
+		 * Your ajax action parameter would have to equal plugin-name-ajax (in this instance)
+		 */
+		$this->loader->add_action('wp_ajax_' . $this->get_plugin_name() . '-ajax', $plugin_ajax, 'handle_ajax');
+	}
+
+	/**
+	 * Register all of the hooks related to the options-facing functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @version  1.0.0
+	 * @access   private
+	 * @return   void
+	 */
+	private function define_options_hooks()
+	{
+
+		$plugin_options = new Plugin_Name_Options($this->get_plugin_name(), $this->get_version());
+
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_options, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_options, 'enqueue_scripts');
+
+		$this->loader->add_action('admin_init', $plugin_options, 'admin_init');
+	}
+
+	/**
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
+	 * @version  1.0.0
 	 * @access   private
+	 * @return   void
 	 */
 	private function define_public_hooks()
 	{
@@ -173,9 +256,28 @@ class Plugin_Name
 	}
 
 	/**
+	 * Register all of the hooks related to the rest-facing functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @version  1.0.0
+	 * @access   private
+	 * @return   void
+	 */
+	private function define_rest_hooks()
+	{
+
+		$plugin_rest = new Plugin_Name_Rest($this->get_plugin_name(), $this->get_version());
+
+		$this->loader->add_action('rest_api_init', $plugin_rest, 'register_routes');
+	}
+
+	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
 	 * @since    1.0.0
+	 * @version  1.0.0
+	 * @return   void
 	 */
 	public function run()
 	{
@@ -187,6 +289,7 @@ class Plugin_Name
 	 * WordPress and to define internationalization functionality.
 	 *
 	 * @since     1.0.0
+	 * @version   1.0.0
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_plugin_name()
@@ -198,6 +301,7 @@ class Plugin_Name
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
+	 * @version   1.0.0
 	 * @return    Plugin_Name_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader()
@@ -209,6 +313,7 @@ class Plugin_Name
 	 * Retrieve the version number of the plugin.
 	 *
 	 * @since     1.0.0
+	 * @version   1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version()

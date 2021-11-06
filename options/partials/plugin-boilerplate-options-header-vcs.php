@@ -12,3 +12,7 @@
  * @package    Plugin_Boilerplate
  * @subpackage Plugin_Boilerplate/option/partials
  */
+
+?>
+
+<p><?php _e("Plugin Boilerplate Version Control", $this->plugin_name) ?></p>

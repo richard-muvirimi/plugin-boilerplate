@@ -8,6 +8,7 @@
  *
  * @link       https://tyganeutronics.com
  * @since      1.0.0
+ * @version 1.0.0
  *
  * @package    Plugin_Boilerplate
  * @subpackage Plugin_Boilerplate/includes
@@ -23,6 +24,7 @@
  * version of the plugin.
  *
  * @since      1.0.0
+ * @version 1.0.0
  * @package    Plugin_Boilerplate
  * @subpackage Plugin_Boilerplate/includes
  * @author     Richard Muvirimi <tygalive@gmail.com>
@@ -35,6 +37,7 @@ class Plugin_Boilerplate
 	 * the plugin.
 	 *
 	 * @since    1.0.0
+	 * @version 1.0.0
 	 * @access   protected
 	 * @var      Plugin_Boilerplate_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
@@ -44,6 +47,7 @@ class Plugin_Boilerplate
 	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
+	 * @version 1.0.0
 	 * @access   protected
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
@@ -53,6 +57,7 @@ class Plugin_Boilerplate
 	 * The current version of the plugin.
 	 *
 	 * @since    1.0.0
+	 * @version 1.0.0
 	 * @access   protected
 	 * @var      string    $version    The current version of the plugin.
 	 */
@@ -66,14 +71,13 @@ class Plugin_Boilerplate
 	 * the public-facing side of the site.
 	 *
 	 * @since    1.0.0
+	 * @version 1.0.0
+	 * @return void
 	 */
 	public function __construct()
 	{
-		if (defined('PLUGIN_BOILERPLATE_VERSION')) {
-			$this->version = PLUGIN_BOILERPLATE_VERSION;
-		} else {
-			$this->version = '1.0.0';
-		}
+
+		$this->version = PLUGIN_BOILERPLATE_VERSION;
 		$this->plugin_name = PLUGIN_BOILERPLATE_SLUG;
 
 		$this->load_dependencies();
@@ -97,7 +101,9 @@ class Plugin_Boilerplate
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
+	 * @version 1.0.0
 	 * @access   private
+	 * @return void
 	 */
 	private function load_dependencies()
 	{
@@ -146,7 +152,9 @@ class Plugin_Boilerplate
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
+	 * @version 1.0.0
 	 * @access   private
+	 * @return void
 	 */
 	private function set_locale()
 	{
@@ -161,7 +169,9 @@ class Plugin_Boilerplate
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
+	 * @version 1.0.0
 	 * @access   private
+	 * @return void
 	 */
 	private function define_admin_hooks()
 	{
@@ -188,6 +198,8 @@ class Plugin_Boilerplate
 		$this->loader->add_filter($this->get_plugin_name() . "-plugin-author-website", $plugin_admin, 'filter_plugin_author_website');
 		$this->loader->add_filter($this->get_plugin_name() . "-plugin-author-email", $plugin_admin, 'filter_plugin_author_email');
 
+		$this->loader->add_filter($this->get_plugin_name() . "-file-file-valid", $plugin_admin, 'filter_plugin_file_valid', 10, 2);
+
 		$this->loader->add_filter($this->get_plugin_name() . "-file-path", $plugin_admin, 'filter_plugin_file_path');
 
 		$this->loader->add_filter($this->get_plugin_name() . "-file-content", $plugin_admin, 'filter_plugin_file_content_name');
@@ -197,7 +209,12 @@ class Plugin_Boilerplate
 		$this->loader->add_filter($this->get_plugin_name() . "-file-content", $plugin_admin, 'filter_plugin_file_content_author_website');
 		$this->loader->add_filter($this->get_plugin_name() . "-file-content", $plugin_admin, 'filter_plugin_file_content_author_email');
 
+		//filter included features
+		$this->loader->add_filter($this->get_plugin_name() . "-file-content", $plugin_admin, 'filter_plugin_file_content_features', 10, 2);
+
 		$this->loader->add_filter("wp_redirect", $plugin_admin, 'on_options_redirect');
+		$this->loader->add_filter("update-custom_" . $this->plugin_name, $plugin_admin, 'install_plugin');
+		$this->loader->add_filter("install_plugin_complete_actions", $plugin_admin, 'install_plugin_complete_actions');
 	}
 
 	/**
@@ -205,7 +222,9 @@ class Plugin_Boilerplate
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
+	 * @version 1.0.0
 	 * @access   private
+	 * @return void
 	 */
 	private function define_options_hooks()
 	{
@@ -225,7 +244,9 @@ class Plugin_Boilerplate
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
+	 * @version 1.0.0
 	 * @access   private
+	 * @return void
 	 */
 	private function define_public_hooks()
 	{
@@ -240,6 +261,8 @@ class Plugin_Boilerplate
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
 	 * @since    1.0.0
+	 * @version 1.0.0
+	 * @return void
 	 */
 	public function run()
 	{
@@ -251,6 +274,7 @@ class Plugin_Boilerplate
 	 * WordPress and to define internationalization functionality.
 	 *
 	 * @since     1.0.0
+	 * @version 1.0.0
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_plugin_name()
@@ -262,6 +286,7 @@ class Plugin_Boilerplate
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
+	 * @version 1.0.0
 	 * @return    Plugin_Boilerplate_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader()
@@ -273,6 +298,7 @@ class Plugin_Boilerplate
 	 * Retrieve the version number of the plugin.
 	 *
 	 * @since     1.0.0
+	 * @version 1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version()

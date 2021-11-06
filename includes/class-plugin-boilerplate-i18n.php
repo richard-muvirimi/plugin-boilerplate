@@ -8,6 +8,7 @@
  *
  * @link       https://tyganeutronics.com
  * @since      1.0.0
+ * @version 1.0.0
  *
  * @package    Plugin_Boilerplate
  * @subpackage Plugin_Boilerplate/includes
@@ -20,6 +21,7 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
+ * @version 1.0.0
  * @package    Plugin_Boilerplate
  * @subpackage Plugin_Boilerplate/includes
  * @author     Richard Muvirimi <tygalive@gmail.com>
@@ -32,6 +34,8 @@ class Plugin_Boilerplate_i18n
 	 * Load the plugin text domain for translation.
 	 *
 	 * @since    1.0.0
+	 * @version 
+	 * @return void
 	 */
 	public function load_plugin_textdomain()
 	{

@@ -7,6 +7,7 @@
  *
  * @link       https://tyganeutronics.com
  * @since      1.0.0
+ * @version 1.0.0
  *
  * @package    Plugin_Boilerplate
  * @subpackage Plugin_Boilerplate/public/partials

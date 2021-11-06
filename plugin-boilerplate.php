@@ -75,6 +75,7 @@ require plugin_dir_path(__FILE__) . 'includes/class-plugin-boilerplate.php';
  * not affect the page life cycle.
  *
  * @since    1.0.0
+ * @version 1.0.0
  */
 function run_plugin_boilerplate()
 {

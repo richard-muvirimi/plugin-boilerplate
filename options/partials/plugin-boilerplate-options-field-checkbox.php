@@ -7,6 +7,7 @@
  *
  * @link       htts://tyganeutronics.com
  * @since      1.0.0
+ * @version 1.0.0
  *
  * @package    Plugin_Boilerplate_Pro
  * @subpackage Plugin_Boilerplate_Pro/option/partials
@@ -16,8 +17,7 @@
 
 ?>
 
-<input id="<?php esc_attr_e($args['label_for']) ?>" name="<?php esc_attr_e($args['label_for']) ?>" type="checkbox"
-    <?php checked($args['value'], "yes") ?>>
+<input id="<?php esc_attr_e($args['label_for']) ?>" name="<?php esc_attr_e($args['label_for']) ?>" type="checkbox" <?php checked($args['value'], "yes") ?>>
 
 <div>
     <small class="description">
