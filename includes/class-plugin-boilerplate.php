@@ -85,6 +85,7 @@ class Plugin_Boilerplate
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_options_hooks();
+		$this->define_rest_hooks();
 	}
 
 	/**
@@ -136,6 +137,12 @@ class Plugin_Boilerplate
 		 * side of the site.
 		 */
 		require_once plugin_dir_path(dirname(__FILE__)) . 'options/class-plugin-boilerplate-options.php';
+
+		/**
+		 * The class responsible for defining all actions that occur in the rest-facing
+		 * side of the site.
+		 */
+		require_once plugin_dir_path(dirname(__FILE__)) . 'rest/class-plugin-boilerplate-rest.php';
 
 		/**
 		 * The file responsible for defining all plugin general functionality
@@ -255,6 +262,23 @@ class Plugin_Boilerplate
 
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
+	}
+
+	/**
+	 * Register all of the hooks related to the rest-facing functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @version  1.0.0
+	 * @access   private
+	 * @return   void
+	 */
+	private function define_rest_hooks()
+	{
+
+		$plugin_rest = new Plugin_BoilerPlate_Rest($this->get_plugin_name(), $this->get_version());
+
+		$this->loader->add_action('rest_api_init', $plugin_rest, 'register_rest_routes');
 	}
 
 	/**

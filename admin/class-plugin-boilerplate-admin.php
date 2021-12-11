@@ -83,6 +83,10 @@ class Plugin_Boilerplate_Admin
 	{
 
 		wp_register_script($this->plugin_name . "-options", plugin_dir_url(__FILE__) . 'js/plugin-boilerplate-admin.js', array('jquery'), $this->version, false);
+		wp_localize_script($this->plugin_name . "-options", "plugin_boilerplate", array(
+			"name" => $this->plugin_name,
+			"cb" => rest_url($this->plugin_name . '/v1/sanitize_title')
+		));
 	}
 
 	/**
@@ -272,7 +276,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_slug($slug)
 	{
-		return strtolower(filter_input(INPUT_POST, $this->plugin_name . "-slug", FILTER_SANITIZE_STRING)) ?: $slug;
+		return sanitize_title(filter_input(INPUT_POST, $this->plugin_name . "-slug", FILTER_SANITIZE_STRING)) ?: $slug;
 	}
 
 	/**
@@ -285,7 +289,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_name($name)
 	{
-		return filter_input(INPUT_POST, $this->plugin_name . "-name", FILTER_SANITIZE_STRING) ?: $name;
+		return sanitize_text_field(filter_input(INPUT_POST, $this->plugin_name . "-name", FILTER_SANITIZE_STRING)) ?: $name;
 	}
 
 	/**
@@ -298,7 +302,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_website($website)
 	{
-		return filter_input(INPUT_POST, $this->plugin_name . "-website", FILTER_SANITIZE_STRING) ?: $website;
+		return esc_url_raw(filter_input(INPUT_POST, $this->plugin_name . "-website", FILTER_SANITIZE_STRING)) ?: $website;
 	}
 
 	/**
@@ -311,7 +315,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_author($author)
 	{
-		return filter_input(INPUT_POST, $this->plugin_name . "-author-name", FILTER_SANITIZE_STRING) ?: $author;
+		return sanitize_text_field(filter_input(INPUT_POST, $this->plugin_name . "-author-name", FILTER_SANITIZE_STRING)) ?: $author;
 	}
 
 	/**
@@ -324,7 +328,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_author_website($website)
 	{
-		return filter_input(INPUT_POST, $this->plugin_name . "-author-website", FILTER_SANITIZE_STRING) ?: $website;
+		return esc_url_raw(filter_input(INPUT_POST, $this->plugin_name . "-author-website", FILTER_SANITIZE_STRING)) ?: $website;
 	}
 
 	/**
@@ -337,7 +341,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_author_email($email)
 	{
-		return filter_input(INPUT_POST, $this->plugin_name . "-author-email", FILTER_SANITIZE_STRING) ?: $email;
+		return sanitize_email(filter_input(INPUT_POST, $this->plugin_name . "-author-email", FILTER_SANITIZE_STRING)) ?: $email;
 	}
 
 	/**
