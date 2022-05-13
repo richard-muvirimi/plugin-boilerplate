@@ -40,11 +40,11 @@ No this plugin works out of the box already loaded with all the assets it requir
 == Upgrade Notice ==
 
 = 1.0 =
-Initial Launch
+* Initial Launch
 
 == Arbitrary section ==
 
-Have discovered everytime i have to create a new plugin i had to go ont he internet and download a boilerplate copy and manually install and made this to counter that.
+Have discovered everytime i have to create a new plugin i had to go onto the internet and download a boilerplate copy and manually install and made this to counter that.
 
 Features:
 
