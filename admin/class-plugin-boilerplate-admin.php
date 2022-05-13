@@ -238,7 +238,7 @@ class Plugin_Boilerplate_Admin
 
 			if (in_array($match[1], plugin_boilerplate_dirs())) {
 
-				$valid = filter_input(INPUT_POST, $this->plugin_name . "-feature-" . $match[1], FILTER_SANITIZE_STRING) == "on";
+				$valid = filter_input(INPUT_POST, $this->plugin_name . "-feature-" . $match[1], FILTER_DEFAULT) == "on";
 			}
 
 			/**
@@ -246,19 +246,19 @@ class Plugin_Boilerplate_Admin
 			 * 
 			 * was disabled above re-enable here
 			 */
-			if ($match[1] == "vendor" && filter_input(INPUT_POST, $this->plugin_name . "-feature-composer", FILTER_SANITIZE_STRING) == "on") {
+			if ($match[1] == "vendor" && filter_input(INPUT_POST, $this->plugin_name . "-feature-composer", FILTER_DEFAULT) == "on") {
 				$valid = true;
 			}
 		}
 
 		if ($wp_filesystem->is_file($path)) {
 			//composer
-			if (basename($path) == "composer.json" && filter_input(INPUT_POST, $this->plugin_name . "-feature-composer", FILTER_SANITIZE_STRING) != "on") {
+			if (basename($path) == "composer.json" && filter_input(INPUT_POST, $this->plugin_name . "-feature-composer", FILTER_DEFAULT) != "on") {
 				$valid = false;
 			}
 
 			//git
-			if (basename($path) == ".gitignore" && filter_input(INPUT_POST, $this->plugin_name . "-vcs-git", FILTER_SANITIZE_STRING) != "on") {
+			if (basename($path) == ".gitignore" && filter_input(INPUT_POST, $this->plugin_name . "-vcs-git", FILTER_DEFAULT) != "on") {
 				$valid = false;
 			}
 		}
@@ -276,7 +276,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_slug($slug)
 	{
-		return sanitize_title(filter_input(INPUT_POST, $this->plugin_name . "-slug", FILTER_SANITIZE_STRING)) ?: $slug;
+		return sanitize_title(filter_input(INPUT_POST, $this->plugin_name . "-slug", FILTER_DEFAULT)) ?: $slug;
 	}
 
 	/**
@@ -289,7 +289,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_name($name)
 	{
-		return sanitize_text_field(filter_input(INPUT_POST, $this->plugin_name . "-name", FILTER_SANITIZE_STRING)) ?: $name;
+		return sanitize_text_field(filter_input(INPUT_POST, $this->plugin_name . "-name", FILTER_DEFAULT)) ?: $name;
 	}
 
 	/**
@@ -302,7 +302,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_website($website)
 	{
-		return esc_url_raw(filter_input(INPUT_POST, $this->plugin_name . "-website", FILTER_SANITIZE_STRING)) ?: $website;
+		return esc_url_raw(filter_input(INPUT_POST, $this->plugin_name . "-website", FILTER_DEFAULT)) ?: $website;
 	}
 
 	/**
@@ -315,7 +315,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_author($author)
 	{
-		return sanitize_text_field(filter_input(INPUT_POST, $this->plugin_name . "-author-name", FILTER_SANITIZE_STRING)) ?: $author;
+		return sanitize_text_field(filter_input(INPUT_POST, $this->plugin_name . "-author-name", FILTER_DEFAULT)) ?: $author;
 	}
 
 	/**
@@ -328,7 +328,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_author_website($website)
 	{
-		return esc_url_raw(filter_input(INPUT_POST, $this->plugin_name . "-author-website", FILTER_SANITIZE_STRING)) ?: $website;
+		return esc_url_raw(filter_input(INPUT_POST, $this->plugin_name . "-author-website", FILTER_DEFAULT)) ?: $website;
 	}
 
 	/**
@@ -341,7 +341,7 @@ class Plugin_Boilerplate_Admin
 	 */
 	public function filter_plugin_author_email($email)
 	{
-		return sanitize_email(filter_input(INPUT_POST, $this->plugin_name . "-author-email", FILTER_SANITIZE_STRING)) ?: $email;
+		return sanitize_email(filter_input(INPUT_POST, $this->plugin_name . "-author-email", FILTER_DEFAULT)) ?: $email;
 	}
 
 	/**
@@ -739,7 +739,7 @@ class Plugin_Boilerplate_Admin
 			$dirs = plugin_boilerplate_dirs();
 			foreach ($dirs as $dir) {
 
-				if (filter_input(INPUT_POST, $this->plugin_name . "-feature-" . $dir, FILTER_SANITIZE_STRING) != "on") {
+				if (filter_input(INPUT_POST, $this->plugin_name . "-feature-" . $dir, FILTER_DEFAULT) != "on") {
 
 					//remove calling function
 					$content = preg_replace("/\n.*define.*" . $dir . ".*;/", "", $content);
@@ -758,7 +758,7 @@ class Plugin_Boilerplate_Admin
 			/**
 			 * Filter plugin features
 			 */
-			if (filter_input(INPUT_POST, $this->plugin_name . "-feature-composer", FILTER_SANITIZE_STRING) != "on") {
+			if (filter_input(INPUT_POST, $this->plugin_name . "-feature-composer", FILTER_DEFAULT) != "on") {
 
 				//remove composer include
 				$content = preg_replace("/\s+\/\*{2}[\w\s\*.]+\*\/\n\s+include_once.*vendor.*;/", "", $content);
