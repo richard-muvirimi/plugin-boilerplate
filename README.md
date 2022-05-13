@@ -22,13 +22,10 @@ Have discovered everytime i have to create a new plugin i had to go onto the int
 
 ### Installation
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `plugin-boilerplate.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+1. Download the plugin zip from the releases section or `git clone` which ever rocks your boat.
+2. Upload `plugin-boilerplate.php` to the `/wp-content/plugins/` directory
+3. Activate the plugin through the 'Plugins' menu in WordPress
+4. Access `/wp-admin/plugins.php?page=plugin-boilerplate` to start creating plugins
 
 ### Frequently Asked Questions
 
